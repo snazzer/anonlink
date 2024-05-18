@@ -36,7 +36,10 @@ if current_os == "Windows":
     extra_compile_args = ['/std:c++17', '/O2']
     extra_link_args = []
 else:
+    machine = platform.uname().machine
     extra_compile_args = ['-O3', '-std=c++11']
+    if machine == 'aarch64':
+        extra_compile_args += ['-fsigned-char']
     extra_link_args = []
 
 extensions = [
@@ -68,7 +71,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 setup(
     name="anonlink",
-    version='0.15.3',
+    version='0.15.4',
     description='Anonymous linkage using cryptographic hashes and bloom filters',
     long_description=readme,
     long_description_content_type='text/x-rst',
